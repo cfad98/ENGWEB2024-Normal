@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodbdata:/data/db
+
+  api:
+    build: ./ex1
+    ports:
+      - "16000:16000"
+    depends_on:
+      - mongodb
+
+  web:
+    build: ./ex2
+    ports:
+      - "16001:16001"
+    depends_on:
+      - api
+
+volumes:
+  mongodbdata:
